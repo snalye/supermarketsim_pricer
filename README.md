@@ -15,7 +15,7 @@ Python tool to set prices based on percentage markup
     ```bash
     pip install pyautogui pillow pytesseract pyperclip keyboard opencv-python
     ```
-4. Download tesseract from their github: https://github.com/UB-Mannheim/tesseract/wiki
+4. Download tesseract-ocr from their github: https://github.com/UB-Mannheim/tesseract/wiki
 ## Usage
 
 1. Update the config.ini file with the desired configuration parameters:
