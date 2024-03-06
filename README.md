@@ -22,9 +22,11 @@ Python tool to set prices based on percentage markup
 
     - `tesseract_cmd`: Path to the Tesseract OCR executable.
     - `x1, y1, x2, y2`: Coordinates of the top-left and bottom-right corners of the region of     interest (ROI) on the screen. It is currently setup for a 1440p screen
-    - `increase_percentage`: Percentage increase to apply to the extracted price.
-    - `keybind`: Key combination to trigger the price checking action via screenshot.
-    - `keybind_manual`: Key comination to trigger the manual price checking
+    - Keybinds
+        - `scan`: Key combination to trigger the price checking action via       screenshot. Default `ctrl+shift+a`
+        - `manual`: Key comination to trigger the manual price checking.        Default `ctrl+shift+s`
+        - `percentage`: Key comination to trigger the manual price checking. Default `ctrl+shift+x`
+        - `exit`: Key combination to exit script. Default `tab`
 2. Run the script:
     ```bash
     python main.py

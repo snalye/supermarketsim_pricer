@@ -11,6 +11,14 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 pytesseract.pytesseract.tesseract_cmd = config['General']['tesseract_cmd']
 
+def changePercentage():
+    global increase_percentage
+    increase_percentage = int(input('Enter percentage for price: '))
+    print(f"Percentage set to: {increase_percentage}%")
+    print("Waiting for scan...")
+
+changePercentage()
+
 def grayscale(image_path):
     # Load image using OpenCV
     image = cv2.imread(image_path)
@@ -73,18 +81,16 @@ def action():
         price = float(formatted_price)
 
         # Price Math
-        increase_percentage = int(config['General']['increase_percentage'])
         increase_amount = (increase_percentage / 100.0) * price
         new_price = round(price + increase_amount, 2)
         new_price_str = "{:.2f}".format(new_price)
         print("Original Price:", price)
-        print(f"{config['General']['increase_percentage']}% Increase:", new_price)
+        print(f"{increase_percentage}% Increase:", new_price)
         pyperclip.copy(new_price_str)
     except Exception as e:
         # Handle OCR errors or processing failures
         print("Error:", e)
 # # Keybind to activate photo
-keyboard.add_hotkey(config['General']['keybind'], action)
 
 def manual():
     extracted_text = input("Enter the price value manually: ")
@@ -97,15 +103,20 @@ def manual():
     formatted_price = "{:.2f}".format(price_value)  # Format as currency with two decimal places
     price = float(formatted_price)
     # Price Math
-    increase_percentage = int(config['General']['increase_percentage'])
     increase_amount = (increase_percentage / 100.0) * price
     new_price = round(price + increase_amount, 2)
     new_price_str = "{:.2f}".format(new_price)
     print("Original Price:", price)
-    print(f"{config['General']['increase_percentage']}% Increase:", new_price)
+    print(f"{increase_percentage}% Increase:", new_price)
     pyperclip.copy(new_price_str)
 
-# Keybing to activate manual
-keyboard.add_hotkey(config['General']['keybind_manual'], manual)
 
-keyboard.wait('tab')
+# Keybing to activate manual
+keyboard.add_hotkey(config['Keybind']['manual'], manual)
+
+keyboard.add_hotkey(config['Keybind']['scan'], action)
+
+
+keyboard.add_hotkey(config['Keybind']['percentage'], changePercentage)
+
+keyboard.wait(config['Keybind']['exit'])
